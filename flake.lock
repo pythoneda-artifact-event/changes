@@ -32,6 +32,33 @@
         "type": "github"
       }
     },
+    "pythoneda-artifact-shared-changes": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixos": [
+          "nixos"
+        ],
+        "pythoneda-base": [
+          "pythoneda-base"
+        ]
+      },
+      "locked": {
+        "lastModified": 1689091755,
+        "narHash": "sha256-bp4QplUEZNYv2pj/cSBXzso4UFVCvf37cb8DaD2w13U=",
+        "owner": "pythoneda-artifact-shared",
+        "repo": "changes",
+        "rev": "638f67c43b7478ec5a3abbccdb57a40c0c0f3e66",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pythoneda-artifact-shared",
+        "ref": "0.0.1a1",
+        "repo": "changes",
+        "type": "github"
+      }
+    },
     "pythoneda-base": {
       "inputs": {
         "flake-utils": [
@@ -60,6 +87,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixos": "nixos",
+        "pythoneda-artifact-shared-changes": "pythoneda-artifact-shared-changes",
         "pythoneda-base": "pythoneda-base"
       }
     }
