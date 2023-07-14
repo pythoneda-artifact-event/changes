@@ -50,6 +50,7 @@
             propagatedBuildInputs = with python.pkgs; [
               pythoneda-base
               pythoneda-artifact-shared-changes
+              unidiff
             ];
 
             checkInputs = with python.pkgs; [ pytest ];
