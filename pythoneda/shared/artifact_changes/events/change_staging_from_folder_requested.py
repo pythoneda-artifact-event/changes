@@ -1,9 +1,9 @@
 """
-pythonedaartifactchangesevents/change_staged.py
+pythoneda/shared/artifact_changes/events/change_staging_from_folder_requested.py
 
-This file declares the ChangeStaged event.
+This file declares the ChangeStagingFromFolderRequested event.
 
-Copyright (C) 2023-today rydnr's pythoneda-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,15 +19,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from pythoneda.event import Event
+from pythoneda.shared.artifact_changes.shared.change import Change
 from pythoneda.value_object import primary_key_attribute
-from pythonedaartifactchangesshared.change import Change
 from typing import List
 
-class ChangeStaged(Event):
+class ChangeStagingFromFolderRequested(Event):
     """
-    Represents the moment a new change has been staged.
+    Represents the moment changes from a folder are requested to be staged.
 
-    Class name: ChangeStaged
+    Class name: ChangeStagingFromFolderRequested
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -36,19 +36,11 @@ class ChangeStaged(Event):
         - None
     """
 
-    def __init__(
-        self,
-        change: Change,
-        changeStagingRequestedId: str = None,
-        reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
-    ):
+    def __init__(self, repositoryFolder:str, previousEventIds:List[str]=None, reconstructedId:str=None, reconstructedPreviousEventIds:List[str]=None):
         """
-        Creates a new ChangeStaged instance.
-        :param change: The change information.
-        :type change: str
-        :param changeStagingRequestedId: The id of the previous event, if any.
-        :type changeStagingRequestedId: str
+        Creates a new ChangeStagingFromFolderRequested instance.
+        :param repositoryFolder: The repository folder.
+        :type repositoryFolder: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -56,18 +48,15 @@ class ChangeStaged(Event):
         :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
         :type reconstructedPreviousEventIds: List[str]
         """
-        previous_events = None
-        if changeStagingRequestedId:
-            previous_events = [ changeStagingRequestedId ]
-        super().__init__(previous_events, reconstructedId, reconstructedPreviousEventIds)
-        self._change = change
+        super().__init__(previousEventIds, reconstructedId, reconstructedPreviousEventIds)
+        self._repository_folder = repositoryFolder
 
     @property
     @primary_key_attribute
-    def change(self) -> Change:
+    def repository_folder(self) -> str:
         """
-        Retrieves the change.
+        Retrieves the repository folder.
         :return: Such information.
-        :rtype: pythonedaartifactsharedchanges.change.Change
+        :rtype: str
         """
-        return self._change
+        return self._repository_folder
