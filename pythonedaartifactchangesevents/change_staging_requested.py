@@ -1,9 +1,9 @@
 """
-pythonedaartifacteventchanges/change_staging_requested.py
+pythonedaartifactchangesevents/change_staging_requested.py
 
 This file declares the ChangeStagingRequested event.
 
-Copyright (C) 2023-today rydnr's pythoneda-artifact-event/changes
+Copyright (C) 2023-today rydnr's pythoneda-artifact-changes/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from pythoneda.event import Event
 from pythoneda.value_object import primary_key_attribute
-from pythonedaartifactsharedchanges.change import Change
+from pythonedaartifactchangesshared.change import Change
 from typing import List
 
 class ChangeStagingRequested(Event):
