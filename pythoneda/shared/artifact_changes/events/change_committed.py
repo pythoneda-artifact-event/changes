@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact_changes/events/change_staged.py
+pythoneda/shared/artifact_changes/events/change_committed.py
 
-This file declares the ChangeStaged event.
+This file declares the ChangeCommitted event.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
@@ -23,32 +23,32 @@ from pythoneda.shared.artifact_changes.change import Change
 from pythoneda.value_object import primary_key_attribute
 from typing import List
 
-class ChangeStaged(Event):
+class ChangeCommitted(Event):
     """
-    Represents the moment a new change has been staged.
+    Represents the moment a new change has been committed.
 
-    Class name: ChangeStaged
+    Class name: ChangeCommitted
 
     Responsibilities:
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - None
+        - pythoneda.shared.artifact_changes.events.CommitChangeRequested: The event this one is response to.
     """
 
     def __init__(
         self,
         change: Change,
-        changeStagingRequestedId: str = None,
+        commitChangeRequestedId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new ChangeStaged instance.
+        Creates a new ChangeCommitted instance.
         :param change: The change information.
         :type change: pythoneda.shared.artifact_changes.change.Change
-        :param changeStagingRequestedId: The id of the previous event, if any.
-        :type changeStagingRequestedId: str
+        :param commitChangeRequestedId: The id of the request event.
+        :type commitChangeRequestedId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -57,9 +57,11 @@ class ChangeStaged(Event):
         :type reconstructedPreviousEventIds: List[str]
         """
         previous_events = None
-        if changeStagingRequestedId:
-            previous_events = [ changeStagingRequestedId ]
-        super().__init__(previous_events, reconstructedId, reconstructedPreviousEventIds)
+        if commitCangeRequestedId:
+            previous_events = [commitChangeRequestedId]
+        super().__init__(
+            previous_events, reconstructedId, reconstructedPreviousEventIds
+        )
         self._change = change
 
     @property

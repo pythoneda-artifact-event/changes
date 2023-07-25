@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from pythoneda.event import Event
-from pythoneda.shared.artifact_changes.shared.change import Change
+from pythoneda.shared.artifact_changes.change import Change
 from pythoneda.value_object import primary_key_attribute
 from typing import List
 
@@ -40,7 +40,7 @@ class ChangeStagingRequested(Event):
         """
         Creates a new ChangeStagingRequested instance.
         :param change: The change information.
-        :type change: str
+        :type change: pythoneda.shared.artifact_changes.change.Change
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -57,6 +57,6 @@ class ChangeStagingRequested(Event):
         """
         Retrieves the change.
         :return: Such information.
-        :rtype: pythonedaartifactsharedchanges.change.Change
+        :rtype: pythoneda.shared.artifact_changes.change.Change
         """
         return self._change

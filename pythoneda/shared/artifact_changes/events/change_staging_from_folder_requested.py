@@ -19,7 +19,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from pythoneda.event import Event
-from pythoneda.shared.artifact_changes.shared.change import Change
 from pythoneda.value_object import primary_key_attribute
 from typing import List
 
