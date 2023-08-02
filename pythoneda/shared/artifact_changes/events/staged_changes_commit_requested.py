@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact_changes/events/commit_staged_changes_requested.py
+pythoneda/shared/artifact_changes/events/staged_changes_commit_requested.py
 
-This file declares the CommitStagedChangesRequested event.
+This file declares the StagedChangesCommitRequested event.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
@@ -23,12 +23,11 @@ from pythoneda.shared.artifact_changes.change import Change
 from pythoneda.value_object import primary_key_attribute
 from typing import List
 
-
-class CommitStagedChangeRequested(Event):
+class StagedChangesCommitRequested(Event):
     """
     Represents the moment the staged changes are requested to be committed.
 
-    Class name: CommitChangeRequested
+    Class name: StagedChangesCommitRequested
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -46,7 +45,7 @@ class CommitStagedChangeRequested(Event):
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new CommitStagedChangesRequested instance.
+        Creates a new StagedChangesCommitRequested instance.
         :param repositoryUrl: The repository url.
         :type repositoryUrl: str
         :param branch: The branch.
