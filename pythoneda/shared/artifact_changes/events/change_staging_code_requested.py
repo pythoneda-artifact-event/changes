@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact_changes/events/change_staging_requested.py
+pythoneda/shared/artifact_changes/events/change_staging_code_requested.py
 
-This file declares the ChangeStagingRequested event.
+This file declares the ChangeStagingCodeRequested event.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
@@ -18,16 +18,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda.event import Event
-from pythoneda.shared.artifact_changes.change import Change
-from pythoneda.value_object import primary_key_attribute
+from pythoneda.shared.artifact_changes import Change
+from pythoneda.shared.code_requests.events import CodeRequested
 from typing import List
 
-class ChangeStagingRequested(Event):
+class ChangeStagingCodeRequested(CodeRequested):
     """
-    Represents the moment a new change is requested to be staged.
+    Represents the moment the code to stage a new change is requested.
 
-    Class name: ChangeStagingRequested
+    Class name: ChangeStagingCodeRequested
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -38,7 +37,7 @@ class ChangeStagingRequested(Event):
 
     def __init__(self, change:Change, previousEventIds:List[str]=None, reconstructedId:str=None, reconstructedPreviousEventIds:List[str]=None):
         """
-        Creates a new ChangeStagingRequested instance.
+        Creates a new ChangeStagingCodeRequested instance.
         :param change: The change information.
         :type change: pythoneda.shared.artifact_changes.change.Change
         :param previousEventIds: The id of previous events, if any.
@@ -48,15 +47,4 @@ class ChangeStagingRequested(Event):
         :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
         :type reconstructedPreviousEventIds: List[str]
         """
-        super().__init__(previousEventIds, reconstructedId, reconstructedPreviousEventIds)
-        self._change = change
-
-    @property
-    @primary_key_attribute
-    def change(self) -> Change:
-        """
-        Retrieves the change.
-        :return: Such information.
-        :rtype: pythoneda.shared.artifact_changes.change.Change
-        """
-        return self._change
+        super().__init__(change, previousEventIds, reconstructedId, reconstructedPreviousEventIds)

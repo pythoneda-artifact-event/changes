@@ -18,8 +18,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda.event import Event
-from pythoneda.value_object import primary_key_attribute
+from pythoneda import Event, primary_key_attribute
 from typing import List
 
 class ChangeStagingFromFolderRequested(Event):

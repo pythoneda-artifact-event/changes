@@ -19,3 +19,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 __path__ = __import__('pkgutil').extend_path(__path__, __name__)
+
+from .staged_changes_committed import StagedChangesCommitted
+from .change_staged import ChangeStaged
+from .change_staging_code_described import ChangeStagingCodeDescribed
+from .change_staging_code_requested import ChangeStagingCodeRequested
+from .change_staging_from_folder_requested import ChangeStagingFromFolderRequested
+from .staged_changes_commit_code_requested import StagedChangesCommitCodeRequested

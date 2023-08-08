@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact_changes/events/change_staged.py
+pythoneda/shared/artifact_changes/events/change_staging_code_described.py
 
-This file declares the ChangeStaged event.
+This file declares the ChangeStagingCodeDescribed event.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
@@ -18,15 +18,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda import Event, primary_key_attribute
-from pythoneda.shared.artifact_changes import Change
+from pythoneda.shared.code_requests import CodeRequest
+from pythoneda.shared.code_requests.events import CodeDescribed
 from typing import List
 
-class ChangeStaged(Event):
+class ChangeStagingCodeDescribed(CodeDescribed):
     """
-    Represents the moment a new change has been staged.
+    Represents the moment the code to stage a new change is described.
 
-    Class name: ChangeStaged
+    Class name: ChangeStagingCodeDescribed
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -37,36 +37,20 @@ class ChangeStaged(Event):
 
     def __init__(
         self,
-        change: Change,
-        changeStagingRequestedId: str = None,
+        codeRequest: CodeRequest,
+        changeStagingCodeRequestEventId:str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new ChangeStaged instance.
-        :param change: The change information.
-        :type change: pythoneda.shared.artifact_changes.change.Change
-        :param changeStagingRequestedId: The id of the previous event, if any.
-        :type changeStagingRequestedId: str
-        :param previousEventIds: The id of previous events, if any.
-        :type previousEventIds: List[str]
+        Creates a new ChangeStagingCodeDescribed instance.
+        :param codeRequest: The code request.
+        :type codeRequest: pythoneda.shared.code_requests.code_request.CodeRequest
+        :param changeStagingCodeRequestId: The id of previous event.
+        :type changeStagingCodeRequestId: str
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
         :type reconstructedPreviousEventIds: List[str]
         """
-        previous_events = None
-        if changeStagingRequestedId:
-            previous_events = [ changeStagingRequestedId ]
-        super().__init__(previous_events, reconstructedId, reconstructedPreviousEventIds)
-        self._change = change
-
-    @property
-    @primary_key_attribute
-    def change(self) -> Change:
-        """
-        Retrieves the change.
-        :return: Such information.
-        :rtype: pythoneda.shared.artifact_changes.change.Change
-        """
-        return self._change
+        super().__init__(codeRequest, changeStagingCodeRequestEventId, reconstructedId, reconstructedPreviousEventIds)
