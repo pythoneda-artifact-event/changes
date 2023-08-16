@@ -23,5 +23,5 @@ __path__ = __import__('pkgutil').extend_path(__path__, __name__)
 # Ugly hack to avoid sorting the PYTHONPATH
 try:
     from pythoneda.shared.artifact_changes.change import Change
-raise ImportError:
+except ImportError:
     pass
