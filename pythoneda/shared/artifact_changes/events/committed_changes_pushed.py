@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact_changes/events/staged_changes_committed.py
+pythoneda/shared/artifact_changes/events/committed_changes_pushed.py
 
-This file declares the StagedChangesCommitted event.
+This file declares the CommittedChangesPushed event.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
@@ -22,35 +22,36 @@ from pythoneda import Event, primary_key_attribute
 from pythoneda.shared.artifact_changes import Change
 from typing import List
 
-class StagedChangesCommitted(Event):
-    """
-    Represents the moment staged changes have been committed.
 
-    Class name: StagedChangesCommitted
+class CommittedChangesPushed(Event):
+    """
+    Represents the moment committed changes have been pushed.
+
+    Class name: CommittedChangesPushed
 
     Responsibilities:
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - pythoneda.shared.artifact_changes.events.ChangeStagingCodeDescribed: The event this one is response to.
+        - pythoneda.shared.artifact_changes.events.StagedChangesCommitted: The event this one is response to.
     """
 
     def __init__(
         self,
-        change: Change,
-        commit: str,
-        changeStagingCodeDescribedId: str = None,
+        repositoryUrl: str,
+        branch: str,
+        stagingChangesCommittedId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new ChangeCommitted instance.
-        :param change: The change information.
-        :type change: pythoneda.shared.artifact_changes.change.Change
-        :param commit: The hash of the commit.
-        :type commit: str
-        :param changeStagingCodeDescribedId: The id of the request event.
-        :type changeStagingCodeDescribedId: str
+        Creates a new CommittedChangesPushed instance.
+        :param repositoryUrl: The url of the repository.
+        :type repositoryUrl: str
+        :param branch: The branch.
+        :type branch: str
+        :param stagingChangesCommittedId: The id of the request event.
+        :type stagingChangesCommittedId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -59,30 +60,30 @@ class StagedChangesCommitted(Event):
         :type reconstructedPreviousEventIds: List[str]
         """
         previous_events = None
-        if changeStagingCodeDescribedId:
-            previous_events = [changeStagingCodeDescribedId]
+        if stagingChangesCommittedId:
+            previous_events = [stagingChangesCommittedId]
         super().__init__(
             previous_events, reconstructedId, reconstructedPreviousEventIds
         )
-        self._change = change
-        self._commit = commit
+        self._repository_url = repositoryUrl
+        self._branch = branch
 
     @property
     @primary_key_attribute
-    def change(self) -> Change:
+    def repository_url(self) -> str:
         """
-        Retrieves the change.
-        :return: Such information.
-        :rtype: pythoneda.shared.artifact_changes.Change
-        """
-        return self._change
-
-    @property
-    @primary_key_attribute
-    def commit(self) -> str:
-        """
-        Retrieves the commit.
-        :return: Such information.
+        Retrieves the url of the repository.
+        :return: Such url.
         :rtype: str
         """
-        return self._commit
+        return self._repository_url
+
+    @property
+    @primary_key_attribute
+    def branch(self) -> str:
+        """
+        Retrieves the branch.
+        :return: Such value.
+        :rtype: str
+        """
+        return self._branch
