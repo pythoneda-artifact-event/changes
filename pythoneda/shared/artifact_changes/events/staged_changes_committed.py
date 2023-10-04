@@ -44,9 +44,9 @@ class StagedChangesCommitted(Event):
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new ChangeCommitted instance.
+        Creates a new StagedChangesCommitted instance.
         :param change: The change information.
-        :type change: pythoneda.shared.artifact_changes.change.Change
+        :type change: pythoneda.shared.artifact_changes.Change
         :param commit: The hash of the commit.
         :type commit: str
         :param changeStagingCodeDescribedId: The id of the request event.
