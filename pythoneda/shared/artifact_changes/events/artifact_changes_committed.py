@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact_changes/events/staged_changes_committed.py
+pythoneda/shared/artifact_changes/events/artifact_changes_committed.py
 
-This file declares the StagedChangesCommitted event.
+This file declares the ArtifactChangesCommitted event.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
@@ -22,17 +22,18 @@ from .abstract_changes_committed import AbstractChangesCommitted
 from pythoneda.shared.artifact_changes import Change
 from typing import List
 
-class StagedChangesCommitted(AbstractChangesCommitted):
-    """
-    Represents the moment staged changes have been committed.
 
-    Class name: StagedChangesCommitted
+class ArtifactChangesCommitted(AbstractChangesCommitted):
+    """
+    Represents the moment artifact changes have been committed.
+
+    Class name: ArtifactChangesCommitted
 
     Responsibilities:
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - pythoneda.shared.artifact_changes.events.ChangeStagingCodeDescribed: The event this one is response to.
+        - pythoneda.shared.artifact_changes.events.TagPushed: The event this one is response to.
     """
 
     def __init__(
@@ -44,7 +45,7 @@ class StagedChangesCommitted(AbstractChangesCommitted):
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new StagedChangesCommitted instance.
+        Creates a new ArtifactChangesCommitted instance.
         :param change: The change information.
         :type change: pythoneda.shared.artifact_changes.Change
         :param commit: The hash of the commit.

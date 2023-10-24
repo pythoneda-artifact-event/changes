@@ -18,11 +18,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda import Event, primary_key_attribute
+from .abstract_commit_pushed import AbstractCommitPushed
+from pythoneda.shared.artifact_changes import Change
 from typing import List
 
 
-class CommittedChangesPushed(Event):
+class CommittedChangesPushed(AbstractCommitPushed):
     """
     Represents the moment committed changes have been pushed.
 
@@ -37,20 +38,20 @@ class CommittedChangesPushed(Event):
 
     def __init__(
         self,
-        repositoryUrl: str,
-        branch: str,
-        stagingChangesCommittedId: str = None,
+        change: Change,
+        commit: str,
+        stagedChangesCommittedId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new CommittedChangesPushed instance.
-        :param repositoryUrl: The url of the repository.
-        :type repositoryUrl: str
-        :param branch: The branch.
-        :type branch: str
-        :param stagingChangesCommittedId: The id of the request event.
-        :type stagingChangesCommittedId: str
+        :param change: The committed change.
+        :type change: pythoneda.shared.artifact_changes.Change
+        :param commit: The commit.
+        :type commit: str
+        :param stagedChangesCommittedId: The id of the request event.
+        :type stagedChangesCommittedId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -58,31 +59,9 @@ class CommittedChangesPushed(Event):
         :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
         :type reconstructedPreviousEventIds: List[str]
         """
-        previous_events = None
-        if stagingChangesCommittedId:
-            previous_events = [stagingChangesCommittedId]
         super().__init__(
-            previous_events, reconstructedId, reconstructedPreviousEventIds
-        )
-        self._repository_url = repositoryUrl
-        self._branch = branch
-
-    @property
-    @primary_key_attribute
-    def repository_url(self) -> str:
-        """
-        Retrieves the url of the repository.
-        :return: Such url.
-        :rtype: str
-        """
-        return self._repository_url
-
-    @property
-    @primary_key_attribute
-    def branch(self) -> str:
-        """
-        Retrieves the branch.
-        :return: Such value.
-        :rtype: str
-        """
-        return self._branch
+            change,
+            commit,
+            stagedChangesCommittedId,
+            reconstructedId,
+            reconstructedPreviousEventIds)

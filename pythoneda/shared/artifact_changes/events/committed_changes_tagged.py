@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact_changes/events/staged_changes_committed.py
+pythoneda/shared/artifact_changes/events/committed_changes_tagged.py
 
-This file declares the StagedChangesCommitted event.
+This file declares the CommittedChangesTagged event.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
 
@@ -18,39 +18,48 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from .abstract_changes_committed import AbstractChangesCommitted
-from pythoneda.shared.artifact_changes import Change
+from .abstract_commit_tagged import AbstractCommitTagged
 from typing import List
 
-class StagedChangesCommitted(AbstractChangesCommitted):
-    """
-    Represents the moment staged changes have been committed.
 
-    Class name: StagedChangesCommitted
+class CommittedChangesTagged(AbstractCommitTagged):
+    """
+    Represents the moment a commit has been tagged.
+
+    Class name: CommittedChangesTagged
 
     Responsibilities:
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - pythoneda.shared.artifact_changes.events.ChangeStagingCodeDescribed: The event this one is response to.
+        - pythoneda.shared.artifact_changes.events.StagedChangesCommitted: A previous event that wraps the commit.
     """
 
     def __init__(
         self,
-        change: Change,
+        tag: str,
         commit: str,
-        tagPushedId: str = None,
+        repositoryUrl: str,
+        branch: str,
+        repositoryFolder: str,
+        stagedChangesCommittedId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new StagedChangesCommitted instance.
-        :param change: The change information.
-        :type change: pythoneda.shared.artifact_changes.Change
+        Creates a new CommittedChangesTagged instance.
+        :param tag: The tag.
+        :type tag: str
         :param commit: The hash of the commit.
         :type commit: str
-        :param tagPushedId: The id of the request event.
-        :type tagPushedId: str
+        :param repositoryUrl: The repository url.
+        :type repositoryUrl: str
+        :param repositoryFolder: The repository folder.
+        :param branch: The branch.
+        :type branch: str
+        :type repositoryFolder: str
+        :param stagedChangesCommittedId: The id of the previous event, if any.
+        :type stagedChangesCommittedId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -59,9 +68,11 @@ class StagedChangesCommitted(AbstractChangesCommitted):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            change,
+            tag,
             commit,
-            tagPushedId,
+            repositoryUrl,
+            branch,
+            repositoryFolder,
+            stagedChangesCommittedId,
             reconstructedId,
-            reconstructedPreviousEventIds
-        )
+            reconstructedPreviousEventIds)
