@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/__init__.py
+pythoneda/shared/artifact/events/__init__.py
 
-This file ensures pythoneda.shared.artifact_changes.events is a namespace.
+This file ensures pythoneda.shared.artifact.events is a namespace.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,16 +18,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-__path__ = __import__('pkgutil').extend_path(__path__, __name__)
+__path__ = __import__("pkgutil").extend_path(__path__, __name__)
 
 from .abstract_changes_committed import AbstractChangesCommitted
 from .abstract_commit_pushed import AbstractCommitPushed
 from .abstract_commit_tagged import AbstractCommitTagged
 from .abstract_tag_pushed import AbstractTagPushed
-from .artifact_changes_committed import ArtifactChangesCommitted
-from .artifact_commit_pushed import ArtifactCommitPushed
-from .artifact_commit_tagged import ArtifactCommitTagged
-from .artifact_tag_pushed import ArtifactTagPushed
+from .change import Change
 from .change_staged import ChangeStaged
 from .change_staging_code_execution_packaged import ChangeStagingCodeExecutionPackaged
 from .change_staging_code_execution_requested import ChangeStagingCodeExecutionRequested

@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/change_staging_code_packaged.py
+pythoneda/shared/artifact/events/change_staging_code_described.py
 
-This file declares the ChangeStagingCodePackaged event.
+This file declares the ChangeStagingCodeDescribed event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,16 +18,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda.shared.code_requests import CodeRequestNixFlake
-from pythoneda.shared.code_requests.events import CodePackaged
-from pythoneda.shared.nix_flake import NixFlake
+from pythoneda.shared.code_requests import CodeRequest
+from pythoneda.shared.code_requests.events import CodeDescribed
 from typing import List
 
-class ChangeStagingCodePackaged(CodePackaged):
-    """
-    Represents the moment the code to stage a new change is packaged.
 
-    Class name: ChangeStagingCodePackaged
+class ChangeStagingCodeDescribed(CodeDescribed):
+    """
+    Represents the moment the code to stage a new change is described.
+
+    Class name: ChangeStagingCodeDescribed
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -38,15 +38,15 @@ class ChangeStagingCodePackaged(CodePackaged):
 
     def __init__(
         self,
-        codeRequestNixFlake: CodeRequestNixFlake,
+        codeRequest: CodeRequest,
         changeStagingCodeRequestEventId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new ChangeStagingCodePackaged instance.
-        :param codeRequestNixFlake: The nix flake for the code request.
-        :type codeRequestNixFlake: pythoneda.shared.code_requests.CodeRequestNixFlake
+        Creates a new ChangeStagingCodeDescribed instance.
+        :param codeRequest: The code request.
+        :type codeRequest: pythoneda.shared.code_requests.CodeRequest
         :param changeStagingCodeRequestId: The id of previous event.
         :type changeStagingCodeRequestId: str
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -55,7 +55,7 @@ class ChangeStagingCodePackaged(CodePackaged):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            codeRequestNixFlake,
+            codeRequest,
             changeStagingCodeRequestEventId,
             reconstructedId,
             reconstructedPreviousEventIds,

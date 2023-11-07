@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/staged_changes_commit_code_requested.py
+pythoneda/shared/artifact/events/staged_changes_commit_code_requested.py
 
 This file declares the StagedChangesCommitCodeRequested event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,8 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from pythoneda import Event, primary_key_attribute
-from pythoneda.shared.artifact_changes import Change
 from typing import List
+
 
 class StagedChangesCommitCodeRequested(Event):
     """

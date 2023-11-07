@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/change_staging_code_requested.py
+pythoneda/shared/artifact/events/change_staging_code_requested.py
 
 This file declares the ChangeStagingCodeRequested event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,9 +18,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda.shared.artifact_changes import Change
+from pythoneda.shared.artifact import Change
 from pythoneda.shared.code_requests.events import CodeRequested
 from typing import List
+
 
 class ChangeStagingCodeRequested(CodeRequested):
     """
@@ -35,11 +36,17 @@ class ChangeStagingCodeRequested(CodeRequested):
         - None
     """
 
-    def __init__(self, change:Change, previousEventIds:List[str]=None, reconstructedId:str=None, reconstructedPreviousEventIds:List[str]=None):
+    def __init__(
+        self,
+        change: Change,
+        previousEventIds: List[str] = None,
+        reconstructedId: str = None,
+        reconstructedPreviousEventIds: List[str] = None,
+    ):
         """
         Creates a new ChangeStagingCodeRequested instance.
         :param change: The change information.
-        :type change: pythoneda.shared.artifact_changes.change.Change
+        :type change: pythoneda.shared.artifact.Change
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -47,4 +54,6 @@ class ChangeStagingCodeRequested(CodeRequested):
         :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
         :type reconstructedPreviousEventIds: List[str]
         """
-        super().__init__(change, previousEventIds, reconstructedId, reconstructedPreviousEventIds)
+        super().__init__(
+            change, previousEventIds, reconstructedId, reconstructedPreviousEventIds
+        )

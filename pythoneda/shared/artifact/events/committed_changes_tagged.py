@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/tag_pushed.py
+pythoneda/shared/artifact/events/committed_changes_tagged.py
 
-This file declares the TagPushed event.
+This file declares the CommittedChangesTagged event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,21 +18,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from .abstract_tag_pushed import AbstractTagPushed
+from .abstract_commit_tagged import AbstractCommitTagged
 from typing import List
 
 
-class TagPushed(AbstractTagPushed):
+class CommittedChangesTagged(AbstractCommitTagged):
     """
-    Represents the moment a tag has been pushed.
+    Represents the moment a commit has been tagged.
 
-    Class name: TagPushed
+    Class name: CommittedChangesTagged
 
     Responsibilities:
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - pythoneda.shared.artifact_changes.events.CommittedChangesTagged: A previous event that wraps the tag.
+        - pythoneda.shared.artifact.events.StagedChangesCommitted: A previous event that wraps the commit.
     """
 
     def __init__(
@@ -42,24 +42,24 @@ class TagPushed(AbstractTagPushed):
         repositoryUrl: str,
         branch: str,
         repositoryFolder: str,
-        committedChangesTaggedId: str = None,
+        stagedChangesCommittedId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new TagPushed instance.
+        Creates a new CommittedChangesTagged instance.
         :param tag: The tag.
         :type tag: str
         :param commit: The hash of the commit.
         :type commit: str
         :param repositoryUrl: The repository url.
         :type repositoryUrl: str
+        :param repositoryFolder: The repository folder.
         :param branch: The branch.
         :type branch: str
-        :param repositoryFolder: The repository folder.
         :type repositoryFolder: str
-        :param committedChangesTaggedId: The id of the previous event, if any.
-        :type committedChangesTaggedId: str
+        :param stagedChangesCommittedId: The id of the previous event, if any.
+        :type stagedChangesCommittedId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -73,6 +73,7 @@ class TagPushed(AbstractTagPushed):
             repositoryUrl,
             branch,
             repositoryFolder,
-            committedChangesTaggedId,
+            stagedChangesCommittedId,
             reconstructedId,
-            reconstructedPreviousEventIds)
+            reconstructedPreviousEventIds,
+        )

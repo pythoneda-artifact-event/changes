@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/committed_changes_pushed.py
+pythoneda/shared/artifact/events/committed_changes_pushed.py
 
 This file declares the CommittedChangesPushed event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_commit_pushed import AbstractCommitPushed
-from pythoneda.shared.artifact_changes import Change
+from .change import Change
 from typing import List
 
 
@@ -33,7 +33,7 @@ class CommittedChangesPushed(AbstractCommitPushed):
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - pythoneda.shared.artifact_changes.events.StagedChangesCommitted: The event this one is response to.
+        - pythoneda.shared.artifact.events.StagedChangesCommitted: The event this one is response to.
     """
 
     def __init__(
@@ -47,7 +47,7 @@ class CommittedChangesPushed(AbstractCommitPushed):
         """
         Creates a new CommittedChangesPushed instance.
         :param change: The committed change.
-        :type change: pythoneda.shared.artifact_changes.Change
+        :type change: pythoneda.shared.artifact.events.Change
         :param commit: The commit.
         :type commit: str
         :param stagedChangesCommittedId: The id of the request event.
@@ -64,4 +64,5 @@ class CommittedChangesPushed(AbstractCommitPushed):
             commit,
             stagedChangesCommittedId,
             reconstructedId,
-            reconstructedPreviousEventIds)
+            reconstructedPreviousEventIds,
+        )

@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/abstract_tag_pushed.py
+pythoneda/shared/artifact/events/abstract_commit_tagged.py
 
-This file declares the AbstractTagPushed class.
+This file declares the AbstractCommitTagged class.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,15 +18,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+import abc
 from pythoneda import attribute, Event, primary_key_attribute
 from typing import List
 
 
-class AbstractTagPushed(Event):
+class AbstractCommitTagged(Event, abc.ABC):
     """
-    Base class for XTagPushed events.
+    Base class for XCommitTagged events.
 
-    Class name: AbstractTagPushed
+    Class name: AbstractCommitTagged
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -42,24 +43,24 @@ class AbstractTagPushed(Event):
         repositoryUrl: str,
         branch: str,
         repositoryFolder: str,
-        committedChangesTaggedId: str = None,
+        previousEventId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new AbstractTagPushed instance.
+        Creates a new AbstractCommitTagged instance.
         :param tag: The tag.
         :type tag: str
         :param commit: The hash of the commit.
         :type commit: str
         :param repositoryUrl: The repository url.
         :type repositoryUrl: str
+        :param repositoryFolder: The repository folder.
         :param branch: The branch.
         :type branch: str
-        :param repositoryFolder: The repository folder.
         :type repositoryFolder: str
-        :param committedChangesTaggedId: The id of the previous event, if any.
-        :type committedChangesTaggedId: str
+        :param previousEventId: The id of the previous event, if any.
+        :type previousEventId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -68,8 +69,8 @@ class AbstractTagPushed(Event):
         :type reconstructedPreviousEventIds: List[str]
         """
         previous_events = None
-        if committedChangesTaggedId:
-            previous_events = [committedChangesTaggedId]
+        if previousEventId:
+            previous_events = [previousEventId]
         super().__init__(
             previous_events, reconstructedId, reconstructedPreviousEventIds
         )
@@ -120,7 +121,7 @@ class AbstractTagPushed(Event):
         return self._branch
 
     @property
-    @primary_key_attribute
+    @attribute
     def repository_folder(self) -> str:
         """
         Retrieves the repository folder.

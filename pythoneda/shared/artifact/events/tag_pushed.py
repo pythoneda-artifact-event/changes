@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/artifact_commit_pushed.py
+pythoneda/shared/artifact/events/tag_pushed.py
 
-This file declares the ArtifactCommitPushed event.
+This file declares the TagPushed event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,40 +18,48 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from .abstract_commit_pushed import AbstractCommitPushed
-from pythoneda.shared.artifact_changes import Change
+from .abstract_tag_pushed import AbstractTagPushed
 from typing import List
 
 
-class ArtifactCommitPushed(AbstractCommitPushed):
+class TagPushed(AbstractTagPushed):
     """
-    Represents the moment a commit has been pushed.
+    Represents the moment a tag has been pushed.
 
-    Class name: ArtifactCommitPushed
+    Class name: TagPushed
 
     Responsibilities:
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - pythoneda.shared.artifact_changes.events.ArtifactChangesCommitted: A previous event that wraps the commit.
+        - pythoneda.shared.artifact.events.CommittedChangesTagged: A previous event that wraps the tag.
     """
 
     def __init__(
         self,
-        change: Change,
+        tag: str,
         commit: str,
-        artifactChangesCommittedId: str = None,
+        repositoryUrl: str,
+        branch: str,
+        repositoryFolder: str,
+        committedChangesTaggedId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new ArtifactCommitPushed instance.
-        :param change: The change.
-        :type change: pythoneda.shared.artifact_changes.Change
+        Creates a new TagPushed instance.
+        :param tag: The tag.
+        :type tag: str
         :param commit: The hash of the commit.
         :type commit: str
-        :param artifactChangesCommittedId: The id of the previous event, if any.
-        :type artifactChangesCommittedId: str
+        :param repositoryUrl: The repository url.
+        :type repositoryUrl: str
+        :param branch: The branch.
+        :type branch: str
+        :param repositoryFolder: The repository folder.
+        :type repositoryFolder: str
+        :param committedChangesTaggedId: The id of the previous event, if any.
+        :type committedChangesTaggedId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -60,9 +68,12 @@ class ArtifactCommitPushed(AbstractCommitPushed):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            change,
+            tag,
             commit,
-            artifactChangesCommittedId,
+            repositoryUrl,
+            branch,
+            repositoryFolder,
+            committedChangesTaggedId,
             reconstructedId,
             reconstructedPreviousEventIds,
         )

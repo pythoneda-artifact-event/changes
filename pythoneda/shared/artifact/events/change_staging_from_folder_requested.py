@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/staged_changes_committed.py
+pythoneda/shared/artifact/events/change_staging_from_folder_requested.py
 
-This file declares the StagedChangesCommitted event.
+This file declares the ChangeStagingFromFolderRequested event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,39 +18,34 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from .abstract_changes_committed import AbstractChangesCommitted
-from pythoneda.shared.artifact_changes import Change
+from pythoneda import Event, primary_key_attribute
 from typing import List
 
-class StagedChangesCommitted(AbstractChangesCommitted):
-    """
-    Represents the moment staged changes have been committed.
 
-    Class name: StagedChangesCommitted
+class ChangeStagingFromFolderRequested(Event):
+    """
+    Represents the moment changes from a folder are requested to be staged.
+
+    Class name: ChangeStagingFromFolderRequested
 
     Responsibilities:
         - Wraps all contextual information of the event.
 
     Collaborators:
-        - pythoneda.shared.artifact_changes.events.ChangeStagingCodeDescribed: The event this one is response to.
+        - None
     """
 
     def __init__(
         self,
-        change: Change,
-        commit: str,
-        tagPushedId: str = None,
+        repositoryFolder: str,
+        previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new StagedChangesCommitted instance.
-        :param change: The change information.
-        :type change: pythoneda.shared.artifact_changes.Change
-        :param commit: The hash of the commit.
-        :type commit: str
-        :param tagPushedId: The id of the request event.
-        :type tagPushedId: str
+        Creates a new ChangeStagingFromFolderRequested instance.
+        :param repositoryFolder: The repository folder.
+        :type repositoryFolder: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -59,9 +54,16 @@ class StagedChangesCommitted(AbstractChangesCommitted):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            change,
-            commit,
-            tagPushedId,
-            reconstructedId,
-            reconstructedPreviousEventIds
+            previousEventIds, reconstructedId, reconstructedPreviousEventIds
         )
+        self._repository_folder = repositoryFolder
+
+    @property
+    @primary_key_attribute
+    def repository_folder(self) -> str:
+        """
+        Retrieves the repository folder.
+        :return: Such information.
+        :rtype: str
+        """
+        return self._repository_folder

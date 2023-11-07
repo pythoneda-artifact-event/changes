@@ -1,9 +1,9 @@
 """
-pythoneda/shared/artifact_changes/events/abstract_changes_committed.py
+pythoneda/shared/artifact/events/abstract_commit_pushed.py
 
-This file declares the AbstractChangesCommitted class.
+This file declares the AbstractCommitPushed event.
 
-Copyright (C) 2023-today rydnr's pythoneda-shared-artifact-changes/events
+Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -18,16 +18,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+from .change import Change
 from pythoneda import Event, primary_key_attribute
-from pythoneda.shared.artifact_changes import Change
 from typing import List
 
 
-class AbstractChangesCommitted(Event):
+class AbstractCommitPushed(Event):
     """
-    Base class for XChangesCommitted events.
+    Represents the moment a commit has been pushed.
 
-    Class name: AbstractChangesCommitted
+    Class name: AbstractCommitPushed
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -40,18 +40,18 @@ class AbstractChangesCommitted(Event):
         self,
         change: Change,
         commit: str,
-        changeStagingCodeDescribedId: str = None,
+        previousEventId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new AbstractChangesCommitted instance.
-        :param change: The change information.
-        :type change: pythoneda.shared.artifact_changes.Change
-        :param commit: The hash of the commit.
+        Creates a new AbstractCommitPushed instance.
+        :param change: The committed change.
+        :type change: pythoneda.shared.artifact.events.Change
+        :param commit: The commit.
         :type commit: str
-        :param changeStagingCodeDescribedId: The id of the request event.
-        :type changeStagingCodeDescribedId: str
+        :param previousEventId: The id of the request event.
+        :type previousEventId: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -60,8 +60,8 @@ class AbstractChangesCommitted(Event):
         :type reconstructedPreviousEventIds: List[str]
         """
         previous_events = None
-        if changeStagingCodeDescribedId:
-            previous_events = [changeStagingCodeDescribedId]
+        if previousEventId:
+            previous_events = [previousEventId]
         super().__init__(
             previous_events, reconstructedId, reconstructedPreviousEventIds
         )
@@ -72,9 +72,9 @@ class AbstractChangesCommitted(Event):
     @primary_key_attribute
     def change(self) -> Change:
         """
-        Retrieves the change.
-        :return: Such information.
-        :rtype: pythoneda.shared.artifact_changes.Change
+        Retrieves the committed change.
+        :return: Such change.
+        :rtype: pythoneda.shared.artifact.events.Change
         """
         return self._change
 
@@ -83,7 +83,7 @@ class AbstractChangesCommitted(Event):
     def commit(self) -> str:
         """
         Retrieves the commit.
-        :return: Such information.
+        :return: Such value.
         :rtype: str
         """
         return self._commit
