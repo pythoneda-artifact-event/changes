@@ -26,14 +26,8 @@ from .abstract_commit_tagged import AbstractCommitTagged
 from .abstract_tag_pushed import AbstractTagPushed
 from .change import Change
 from .change_staged import ChangeStaged
-from .change_staging_code_execution_packaged import ChangeStagingCodeExecutionPackaged
-from .change_staging_code_execution_requested import ChangeStagingCodeExecutionRequested
-from .change_staging_code_described import ChangeStagingCodeDescribed
-from .change_staging_code_packaged import ChangeStagingCodePackaged
-from .change_staging_code_requested import ChangeStagingCodeRequested
 from .change_staging_from_folder_requested import ChangeStagingFromFolderRequested
 from .committed_changes_pushed import CommittedChangesPushed
 from .committed_changes_tagged import CommittedChangesTagged
 from .staged_changes_committed import StagedChangesCommitted
-from .staged_changes_commit_code_requested import StagedChangesCommitCodeRequested
 from .tag_pushed import TagPushed
