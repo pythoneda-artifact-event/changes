@@ -38,6 +38,7 @@ class StagedChangesCommitted(AbstractChangesCommitted):
 
     def __init__(
         self,
+        message: str,
         change: Change,
         commit: str,
         tagPushedId: str = None,
@@ -46,6 +47,8 @@ class StagedChangesCommitted(AbstractChangesCommitted):
     ):
         """
         Creates a new StagedChangesCommitted instance.
+        :param message: The message.
+        :type message: str
         :param change: The change information.
         :type change: pythoneda.shared.artifact.events.Change
         :param commit: The hash of the commit.
@@ -60,5 +63,10 @@ class StagedChangesCommitted(AbstractChangesCommitted):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            change, commit, tagPushedId, reconstructedId, reconstructedPreviousEventIds
+            message,
+            change,
+            commit,
+            tagPushedId,
+            reconstructedId,
+            reconstructedPreviousEventIds,
         )

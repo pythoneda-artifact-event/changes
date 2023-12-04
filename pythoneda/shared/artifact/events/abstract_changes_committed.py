@@ -19,7 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .change import Change
-from pythoneda import Event, primary_key_attribute
+from pythoneda import attribute, Event, primary_key_attribute
 from typing import List
 
 
@@ -38,6 +38,7 @@ class AbstractChangesCommitted(Event):
 
     def __init__(
         self,
+        message: str,
         change: Change,
         commit: str,
         changeStagingCodeDescribedId: str = None,
@@ -46,6 +47,8 @@ class AbstractChangesCommitted(Event):
     ):
         """
         Creates a new AbstractChangesCommitted instance.
+        :param message: The message.
+        :type message: str
         :param change: The change information.
         :type change: pythoneda.shared.artifact.events.Change
         :param commit: The hash of the commit.
@@ -65,8 +68,19 @@ class AbstractChangesCommitted(Event):
         super().__init__(
             previous_events, reconstructedId, reconstructedPreviousEventIds
         )
+        self._message = message
         self._change = change
         self._commit = commit
+
+    @property
+    @attribute
+    def message(self) -> str:
+        """
+        Retrieves the commit message.
+        :return: Such message.
+        :rtype: str
+        """
+        return self._message
 
     @property
     @primary_key_attribute
