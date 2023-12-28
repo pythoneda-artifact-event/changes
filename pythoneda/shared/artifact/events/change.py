@@ -132,7 +132,7 @@ class Change(Entity):
         :param repositoryFolder: The folder of the cloned repository.
         :type repositoryFolder: str
         :return: A Change instance.
-        :rtype: pythonedaartifactsharedchanges.change.Change
+        :rtype: pythoneda.shared.artifact.events.Change
         """
         return cls(unidiffText, repositoryUrl, branch, repositoryFolder)
 
@@ -155,10 +155,8 @@ class Change(Entity):
         :param repositoryFolder: The folder of the cloned repository.
         :type repositoryFolder: str
         :return: A Change instance.
-        :rtype: pythonedaartifactsharedchanges.change.Change
+        :rtype: pythoneda.shared.artifact.events.Change
         """
-        result = None
-
         with open(unidiffFile, "r") as file:
             result = cls(file.read(), repositoryUrl, branch, repositoryFolder)
 
@@ -189,19 +187,19 @@ class Change(Entity):
         }
 
     @classmethod
-    def from_dict(cls, dict: Dict):  # -> Change:
+    def from_dict(cls, source: Dict):  # -> Change:
         """
         Creates a new instance with the contents of given dictionary.
-        :param dict: The dictionary.
-        :type dict: Dict
+        :param source: The dictionary.
+        :type source: Dict
         :return: A Change instance.
-        :rtype: pythoneda.shared.artifact_changes.change.Change
+        :rtype: pythoneda.shared.artifact.events.Change
         """
         return cls(
-            dict["unidiff_text"],
-            dict["repository_url"],
-            dict["branch"],
-            dict.get("repository_folder", None),
+            source["unidiff_text"],
+            source["repository_url"],
+            source["branch"],
+            source.get("repository_folder", None),
         )
 
     def to_json(self) -> str:

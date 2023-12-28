@@ -19,11 +19,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .change import Change
-from pythoneda import attribute, Event, primary_key_attribute
+from .change_event import ChangeEvent
+from pythoneda import attribute, primary_key_attribute
 from typing import List
 
 
-class AbstractChangesCommitted(Event):
+class AbstractChangesCommitted(ChangeEvent):
     """
     Base class for XChangesCommitted events.
 
@@ -55,21 +56,21 @@ class AbstractChangesCommitted(Event):
         :type commit: str
         :param changeStagingCodeDescribedId: The id of the request event.
         :type changeStagingCodeDescribedId: str
-        :param previousEventIds: The id of previous events, if any.
-        :type previousEventIds: List[str]
+        :param changeStagingCodeDescribedId: The id of previous event, if any.
+        :type changeStagingCodeDescribedId: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
+        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
+        is being reconstructed.
         :type reconstructedPreviousEventIds: List[str]
         """
-        previous_events = None
-        if changeStagingCodeDescribedId:
-            previous_events = [changeStagingCodeDescribedId]
         super().__init__(
-            previous_events, reconstructedId, reconstructedPreviousEventIds
+            change,
+            changeStagingCodeDescribedId,
+            reconstructedId,
+            reconstructedPreviousEventIds,
         )
         self._message = message
-        self._change = change
         self._commit = commit
 
     @property
@@ -81,16 +82,6 @@ class AbstractChangesCommitted(Event):
         :rtype: str
         """
         return self._message
-
-    @property
-    @primary_key_attribute
-    def change(self) -> Change:
-        """
-        Retrieves the change.
-        :return: Such information.
-        :rtype: pythoneda.shared.artifact.events.Change
-        """
-        return self._change
 
     @property
     @primary_key_attribute

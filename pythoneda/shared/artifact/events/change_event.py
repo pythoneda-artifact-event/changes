@@ -1,7 +1,7 @@
 """
-pythoneda/shared/artifact/events/change_staged.py
+pythoneda/shared/artifact/events/change_event.py
 
-This file declares the ChangeStaged event.
+This file declares the ChangeEvent class.
 
 Copyright (C) 2023-today rydnr's pythoneda-shared-artifact/events
 
@@ -19,18 +19,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .change import Change
-from pythoneda import Event, primary_key_attribute
+from pythoneda import attribute, Event, primary_key_attribute
+from pythoneda.shared.nix_flake import NixFlakeInput
 from typing import List
 
 
-class ChangeStaged(Event):
+class ChangeEvent(Event):
     """
-    Represents the moment a new change has been staged.
+    Events wrapping a Change.
 
-    Class name: ChangeStaged
+    Class name: ChangeEvent
 
     Responsibilities:
-        - Wraps all contextual information of the event.
+        - Wraps all contextual information of the change.
 
     Collaborators:
         - None
@@ -39,16 +40,16 @@ class ChangeStaged(Event):
     def __init__(
         self,
         change: Change,
-        changeStagingRequestedId: str = None,
+        previousEventId: str = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new ChangeStaged instance.
+        Creates a new ChangeEvent instance.
         :param change: The change information.
         :type change: pythoneda.shared.artifact.events.Change
-        :param changeStagingRequestedId: The id of the previous event, if any.
-        :type changeStagingRequestedId: str
+        :param previousEventId: The id of the request event.
+        :type previousEventId: str
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         :param reconstructedPreviousEventIds: The id of the previous events, if an external event
@@ -56,8 +57,8 @@ class ChangeStaged(Event):
         :type reconstructedPreviousEventIds: List[str]
         """
         previous_events = None
-        if changeStagingRequestedId:
-            previous_events = [changeStagingRequestedId]
+        if previousEventId:
+            previous_events = [previousEventId]
         super().__init__(
             previous_events, reconstructedId, reconstructedPreviousEventIds
         )
@@ -72,3 +73,23 @@ class ChangeStaged(Event):
         :rtype: pythoneda.shared.artifact.events.Change
         """
         return self._change
+
+    def matches_repository_folder(self, folder: str) -> bool:
+        """
+        Checks if this event is referring to given repository folder.
+        :param folder: The folder to check.
+        :type folder: str
+        :return: True if the change is related to the repository folder; False otherwise.
+        :rtype: bool
+        """
+        return self.change.repository_folder == folder
+
+    def matches_input(self, target: NixFlakeInput) -> bool:
+        """
+        Checks if this event refers to given input.
+        :param target: The input.
+        :type target: pythoneda.shared.nix_flake.NixFlakeInput
+        :return: True if the change is related to given input; False otherwise.
+        :rtype: bool
+        """
+        return self.change.repository_url == target.url

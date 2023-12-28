@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from pythoneda import attribute, Event, primary_key_attribute
+from pythoneda.shared.nix_flake import NixFlakeInput
 from typing import List
 
 
@@ -60,11 +61,10 @@ class AbstractTagPushed(Event):
         :type repositoryFolder: str
         :param committedChangesTaggedId: The id of the previous event, if any.
         :type committedChangesTaggedId: str
-        :param previousEventIds: The id of previous events, if any.
-        :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
+        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
+        is being reconstructed.
         :type reconstructedPreviousEventIds: List[str]
         """
         previous_events = None
@@ -128,3 +128,23 @@ class AbstractTagPushed(Event):
         :rtype: str
         """
         return self._repository_folder
+
+    def matches_repository_folder(self, folder: str) -> bool:
+        """
+        Checks if this event is referring to given repository folder.
+        :param folder: The folder to check.
+        :type folder: str
+        :return: True if the change is related to the repository folder; False otherwise.
+        :rtype: bool
+        """
+        return self.repository_folder == folder
+
+    def matches_input(self, target: NixFlakeInput) -> bool:
+        """
+        Checks if this event refers to given input.
+        :param target: The input.
+        :type target: pythoneda.shared.nix_flake.NixFlakeInput
+        :return: True if the change is related to given input; False otherwise.
+        :rtype: bool
+        """
+        return self.repository_url == target.url

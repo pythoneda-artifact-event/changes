@@ -54,17 +54,16 @@ class CommittedChangesTagged(AbstractCommitTagged):
         :type commit: str
         :param repositoryUrl: The repository url.
         :type repositoryUrl: str
-        :param repositoryFolder: The repository folder.
         :param branch: The branch.
         :type branch: str
+        :param repositoryFolder: The repository folder.
         :type repositoryFolder: str
         :param stagedChangesCommittedId: The id of the previous event, if any.
         :type stagedChangesCommittedId: str
-        :param previousEventIds: The id of previous events, if any.
-        :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
+        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
+        is being reconstructed.
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(

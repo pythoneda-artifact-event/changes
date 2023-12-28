@@ -55,11 +55,10 @@ class StagedChangesCommitted(AbstractChangesCommitted):
         :type commit: str
         :param tagPushedId: The id of the request event.
         :type tagPushedId: str
-        :param previousEventIds: The id of previous events, if any.
-        :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
+        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
+        is being reconstructed.
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(

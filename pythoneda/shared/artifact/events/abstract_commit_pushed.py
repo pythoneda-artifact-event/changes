@@ -19,11 +19,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .change import Change
-from pythoneda import Event, primary_key_attribute
+from .change_event import ChangeEvent
+from pythoneda import primary_key_attribute
 from typing import List
 
 
-class AbstractCommitPushed(Event):
+class AbstractCommitPushed(ChangeEvent):
     """
     Represents the moment a commit has been pushed.
 
@@ -52,31 +53,18 @@ class AbstractCommitPushed(Event):
         :type commit: str
         :param previousEventId: The id of the request event.
         :type previousEventId: str
-        :param previousEventIds: The id of previous events, if any.
-        :type previousEventIds: List[str]
+        :param previousEventId: The id of previous events, if any.
+        :type previousEventId: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event is being recostructed.
+        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
+        is being reconstructed.
         :type reconstructedPreviousEventIds: List[str]
         """
-        previous_events = None
-        if previousEventId:
-            previous_events = [previousEventId]
         super().__init__(
-            previous_events, reconstructedId, reconstructedPreviousEventIds
+            change, previousEventId, reconstructedId, reconstructedPreviousEventIds
         )
-        self._change = change
         self._commit = commit
-
-    @property
-    @primary_key_attribute
-    def change(self) -> Change:
-        """
-        Retrieves the committed change.
-        :return: Such change.
-        :rtype: pythoneda.shared.artifact.events.Change
-        """
-        return self._change
 
     @property
     @primary_key_attribute
