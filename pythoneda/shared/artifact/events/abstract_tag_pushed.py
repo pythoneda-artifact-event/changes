@@ -1,3 +1,4 @@
+# vim: set fileencoding=utf-8
 """
 pythoneda/shared/artifact/events/abstract_tag_pushed.py
 
@@ -18,7 +19,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda import attribute, Event, primary_key_attribute
+from pythoneda.shared import attribute, Event, primary_key_attribute
 from pythoneda.shared.nix_flake import NixFlakeInput
 from typing import List
 

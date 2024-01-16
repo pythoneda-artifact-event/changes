@@ -1,3 +1,4 @@
+# vim: set fileencoding=utf-8
 """
 pythoneda/shared/artifact/events/change.py
 
@@ -19,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import json
-from pythoneda import Entity, primary_key_attribute
+from pythoneda.shared import Entity, primary_key_attribute
 from typing import Dict
 from unidiff import PatchSet
 

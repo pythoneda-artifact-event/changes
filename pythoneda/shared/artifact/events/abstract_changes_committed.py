@@ -1,3 +1,4 @@
+# vim: set fileencoding=utf-8
 """
 pythoneda/shared/artifact/events/abstract_changes_committed.py
 
@@ -20,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .change import Change
 from .change_event import ChangeEvent
-from pythoneda import attribute, primary_key_attribute
+from pythoneda.shared import attribute, primary_key_attribute
 from typing import List
 
 
