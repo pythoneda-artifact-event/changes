@@ -14,7 +14,7 @@ Check the latest tag of the artifact repository: https://github.com/pythoneda-sh
     pythoneda-shared-artifact-events = {
       [optional follows]
       url =
-        "github:pythoneda-shared-artifact/events-artifact/[version]?dir=events";
+        "github:pythoneda-shared-artifact-def/events/[version]";
     };
   };
   outputs = [..]
@@ -23,5 +23,5 @@ Check the latest tag of the artifact repository: https://github.com/pythoneda-sh
 
 Should you use another PythonEDA modules, you might want to pin those also used by this project. The same applies to [https://nixos/nixpkgs](nixpkgs "nixpkgs") and [https://github.com/numtide/flake-utils](flake-utils "flake-utils").
 
-The Nix flake is under the [https://github.com/pythoneda-shared-artifact/events-artifact/tree/main/events](events "events") folder of <https://github.com/pythoneda-shared-artifact/events-artifact>.
+The Nix flake is managed by the [https://github.com/pythoneda-shared-artifact-def/events](events "events") definition repository.
 

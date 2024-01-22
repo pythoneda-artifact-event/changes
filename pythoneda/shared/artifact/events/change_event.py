@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .change import Change
 from pythoneda.shared import attribute, Event, primary_key_attribute
-from pythoneda.shared.nix_flake import NixFlakeInput
+from pythoneda.shared.nix.flake import NixFlakeInput
 from typing import List
 
 
@@ -89,11 +89,13 @@ class ChangeEvent(Event):
         """
         Checks if this event refers to given input.
         :param target: The input.
-        :type target: pythoneda.shared.nix_flake.NixFlakeInput
+        :type target: pythoneda.shared.nix.flake.NixFlakeInput
         :return: True if the change is related to given input; False otherwise.
         :rtype: bool
         """
         return self.change.repository_url == target.url
+
+
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
 # Local Variables:
 # mode: python

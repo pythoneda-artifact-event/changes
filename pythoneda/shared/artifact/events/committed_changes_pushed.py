@@ -53,8 +53,6 @@ class CommittedChangesPushed(AbstractCommitPushed):
         :type commit: str
         :param stagedChangesCommittedId: The id of the request event.
         :type stagedChangesCommittedId: str
-        :param previousEventIds: The id of previous events, if any.
-        :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         :param reconstructedPreviousEventIds: The id of the previous events, if an external event
@@ -68,6 +66,8 @@ class CommittedChangesPushed(AbstractCommitPushed):
             reconstructedId,
             reconstructedPreviousEventIds,
         )
+
+
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
 # Local Variables:
 # mode: python
