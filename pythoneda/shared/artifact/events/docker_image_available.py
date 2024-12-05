@@ -38,21 +38,21 @@ class DockerImageAvailable(Event):
 
     def __init__(
         self,
-        name: str,
-        version: str,
-        url: str,
+        imageName: str,
+        imageVersion: str,
+        imageUrl: str,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new DockerImageAvailable instance.
-        :param name: The image name.
-        :type name: str
-        :param version: The image version.
-        :type version: str
-        :param url: The image URL.
-        :type url: str
+        :param imageName: The image name.
+        :type imageName: str
+        :param imageVersion: The image version.
+        :type imageVersion: str
+        :param imageUrl: The image URL.
+        :type imageUrl: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -64,32 +64,32 @@ class DockerImageAvailable(Event):
         super().__init__(
             previousEventIds, reconstructedId, reconstructedPreviousEventIds
         )
-        self._name = name
-        self._version = version
-        self._url = url
+        self._image_name = imageName
+        self._image_version = imageVersion
+        self._image_url = imageUrl
 
     @property
     @primary_key_attribute
-    def name(self) -> str:
+    def image_name(self) -> str:
         """
         The image name.
         """
-        return self._name
+        return self._image_name
 
     @property
     @primary_key_attribute
-    def version(self) -> str:
+    def image_version(self) -> str:
         """
         The image version.
         """
-        return self._version
+        return self._image_version
 
     @property
-    def url(self) -> str:
+    def image_url(self) -> str:
         """
         The image URL.
         """
-        return self._url
+        return self._image_url
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
