@@ -41,6 +41,7 @@ class DockerImagePushed(AbstractDockerEvent):
         self,
         imageName: str,
         imageVersion: str,
+        imageUrl: str,
         registryUrl: str,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
@@ -52,6 +53,8 @@ class DockerImagePushed(AbstractDockerEvent):
         :type imageName: str
         :param imageVersion: The image version.
         :type imageVersion: str
+        :param imageUrl: The url of the image.
+        :type imageUrl: str
         :param registryUrl: The url of the registry.
         :type registryUrl: str
         :param previousEventIds: The id of previous events, if any.
@@ -69,7 +72,18 @@ class DockerImagePushed(AbstractDockerEvent):
             reconstructedId,
             reconstructedPreviousEventIds,
         )
+        self._image_url = imageUrl
         self._registry_url = registryUrl
+
+    @property
+    @primary_key_attribute
+    def image_url(self) -> str:
+        """
+        The image url.
+        :return: Such url.
+        :rtype: str
+        """
+        return self._image_url
 
     @property
     @primary_key_attribute
