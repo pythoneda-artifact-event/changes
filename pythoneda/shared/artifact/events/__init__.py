@@ -33,7 +33,11 @@ from .change_staging_from_folder_requested import ChangeStagingFromFolderRequest
 from .committed_changes_pushed import CommittedChangesPushed
 from .committed_changes_tagged import CommittedChangesTagged
 from .docker_image_available import DockerImageAvailable
+from .docker_image_failed import DockerImageFailed
 from .docker_image_requested import DockerImageRequested
+from .docker_image_push_failed import DockerImagePushFailed
+from .docker_image_push_requested import DockerImagePushRequested
+from .docker_image_pushed import DockerImagePushed
 from .staged_changes_committed import StagedChangesCommitted
 from .tag_pushed import TagPushed
 
