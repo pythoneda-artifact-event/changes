@@ -19,11 +19,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from pythoneda.shared import Event, primary_key_attribute
+from .abstract_docker_event import AbstractDockerEvent
+from pythoneda.shared import primary_key_attribute
 from typing import List
 
 
-class DockerImageRequested(Event):
+class DockerImageRequested(AbstractDockerEvent):
     """
     Represents the moment a Docker image is requested.
 
@@ -59,26 +60,12 @@ class DockerImageRequested(Event):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            previousEventIds, reconstructedId, reconstructedPreviousEventIds
+            imageName,
+            imageVersion,
+            previousEventIds,
+            reconstructedId,
+            reconstructedPreviousEventIds,
         )
-        self._image_name = imageName
-        self._image_version = imageVersion
-
-    @property
-    @primary_key_attribute
-    def image_name(self) -> str:
-        """
-        The image name.
-        """
-        return self._image_name
-
-    @property
-    @primary_key_attribute
-    def image_version(self) -> str:
-        """
-        The image version.
-        """
-        return self._image_version
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

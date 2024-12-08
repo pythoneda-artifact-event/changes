@@ -1,8 +1,8 @@
 # vim: set fileencoding=utf-8
 """
-pythoneda/shared/artifact/events/docker_image_available.py
+pythoneda/shared/artifact/events/docker_image_pushed.py
 
-This file declares the DockerImageAvailable event.
+This file declares the DockerImagePushed event.
 
 Copyright (C) 2024-today rydnr's pythoneda-shared-artifact/events
 
@@ -20,14 +20,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_docker_event import AbstractDockerEvent
+from pythoneda.shared import primary_key_attribute
 from typing import List
 
 
-class DockerImageAvailable(AbstractDockerEvent):
+class DockerImagePushed(AbstractDockerEvent):
     """
-    Represents the moment a Docker image is available.
+    Represents the moment a Docker image is pushed.
 
-    Class name: DockerImageAvailable
+    Class name: DockerImagePushed
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -40,19 +41,19 @@ class DockerImageAvailable(AbstractDockerEvent):
         self,
         imageName: str,
         imageVersion: str,
-        imageUrl: str,
+        registryUrl: str,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new DockerImageAvailable instance.
+        Creates a new DockerImagePushed instance.
         :param imageName: The image name.
         :type imageName: str
         :param imageVersion: The image version.
         :type imageVersion: str
-        :param imageUrl: The image URL.
-        :type imageUrl: str
+        :param registryUrl: The url of the registry.
+        :type registryUrl: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -68,16 +69,17 @@ class DockerImageAvailable(AbstractDockerEvent):
             reconstructedId,
             reconstructedPreviousEventIds,
         )
-        self._image_url = imageUrl
+        self._registry_url = registryUrl
 
     @property
-    def image_url(self) -> str:
+    @primary_key_attribute
+    def registry_url(self) -> str:
         """
-        The image URL.
+        The registry url.
         :return: Such url.
         :rtype: str
         """
-        return self._image_url
+        return self._registry_url
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

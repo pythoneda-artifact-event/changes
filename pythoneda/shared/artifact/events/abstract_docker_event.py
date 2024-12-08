@@ -1,8 +1,8 @@
 # vim: set fileencoding=utf-8
 """
-pythoneda/shared/artifact/events/docker_image_available.py
+pythoneda/shared/artifact/events/abstract_docker_event.py
 
-This file declares the DockerImageAvailable event.
+This file declares the AbstractDockerEvent event.
 
 Copyright (C) 2024-today rydnr's pythoneda-shared-artifact/events
 
@@ -19,15 +19,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from .abstract_docker_event import AbstractDockerEvent
+import abc
+from pythoneda.shared import Event, primary_key_attribute
 from typing import List
 
 
-class DockerImageAvailable(AbstractDockerEvent):
+class AbstractDockerEvent(Event, abc.ABC):
     """
-    Represents the moment a Docker image is available.
+    Base class for Docker-related events.
 
-    Class name: DockerImageAvailable
+    Class name: AbstractDockerEvent
 
     Responsibilities:
         - Wraps all contextual information of the event.
@@ -40,19 +41,16 @@ class DockerImageAvailable(AbstractDockerEvent):
         self,
         imageName: str,
         imageVersion: str,
-        imageUrl: str,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
     ):
         """
-        Creates a new DockerImageAvailable instance.
+        Creates a new AbstractDockerEvent instance.
         :param imageName: The image name.
         :type imageName: str
         :param imageVersion: The image version.
         :type imageVersion: str
-        :param imageUrl: The image URL.
-        :type imageUrl: str
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -62,22 +60,30 @@ class DockerImageAvailable(AbstractDockerEvent):
         :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
-            imageName,
-            imageVersion,
-            previousEventIds,
-            reconstructedId,
-            reconstructedPreviousEventIds,
+            previousEventIds, reconstructedId, reconstructedPreviousEventIds
         )
-        self._image_url = imageUrl
+        self._image_name = imageName
+        self._image_version = imageVersion
 
     @property
-    def image_url(self) -> str:
+    @primary_key_attribute
+    def image_name(self) -> str:
         """
-        The image URL.
-        :return: Such url.
+        The image name.
+        :return: Such name.
         :rtype: str
         """
-        return self._image_url
+        return self._image_name
+
+    @property
+    @primary_key_attribute
+    def image_version(self) -> str:
+        """
+        The image version.
+        :return: Such version.
+        :rtype: str
+        """
+        return self._image_version
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
