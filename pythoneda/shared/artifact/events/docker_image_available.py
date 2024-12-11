@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_docker_event import AbstractDockerEvent
-from typing import List
+from typing import Dict, List
 
 
 class DockerImageAvailable(AbstractDockerEvent):
@@ -41,6 +41,7 @@ class DockerImageAvailable(AbstractDockerEvent):
         imageName: str,
         imageVersion: str,
         imageUrl: str,
+        metadata: Dict[str, str] = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
@@ -51,8 +52,8 @@ class DockerImageAvailable(AbstractDockerEvent):
         :type imageName: str
         :param imageVersion: The image version.
         :type imageVersion: str
-        :param imageUrl: The image URL.
-        :type imageUrl: str
+        :param metadata: The image metadata.
+        :type metadata: Dict[str,str]
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -64,6 +65,7 @@ class DockerImageAvailable(AbstractDockerEvent):
         super().__init__(
             imageName,
             imageVersion,
+            metadata,
             previousEventIds,
             reconstructedId,
             reconstructedPreviousEventIds,
@@ -73,8 +75,8 @@ class DockerImageAvailable(AbstractDockerEvent):
     @property
     def image_url(self) -> str:
         """
-        The image URL.
-        :return: Such url.
+        The image url.
+        :return: The image url.
         :rtype: str
         """
         return self._image_url

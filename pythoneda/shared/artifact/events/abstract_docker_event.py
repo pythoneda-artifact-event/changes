@@ -20,8 +20,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import abc
-from pythoneda.shared import Event, primary_key_attribute
-from typing import List
+from pythoneda.shared import attribute, Event, primary_key_attribute
+from typing import Dict, List
 
 
 class AbstractDockerEvent(Event, abc.ABC):
@@ -41,6 +41,7 @@ class AbstractDockerEvent(Event, abc.ABC):
         self,
         imageName: str,
         imageVersion: str,
+        metadata: Dict[str, str] = None,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
@@ -51,6 +52,8 @@ class AbstractDockerEvent(Event, abc.ABC):
         :type imageName: str
         :param imageVersion: The image version.
         :type imageVersion: str
+        :param metadata: The image metadata.
+        :type metadata: Dict[str, str]
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -64,6 +67,7 @@ class AbstractDockerEvent(Event, abc.ABC):
         )
         self._image_name = imageName
         self._image_version = imageVersion
+        self._metadata = metadata
 
     @property
     @primary_key_attribute
@@ -84,6 +88,16 @@ class AbstractDockerEvent(Event, abc.ABC):
         :rtype: str
         """
         return self._image_version
+
+    @property
+    @attribute
+    def metadata(self) -> Dict[str, str]:
+        """
+        The image metadata.
+        :return: Such metadata.
+        :rtype: Dict[str, str]
+        """
+        return self._metadata
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et

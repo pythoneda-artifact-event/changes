@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_docker_event import AbstractDockerEvent
 from pythoneda.shared import primary_key_attribute
-from typing import List
+from typing import Dict, List
 
 
 class DockerImagePushed(AbstractDockerEvent):
@@ -43,6 +43,7 @@ class DockerImagePushed(AbstractDockerEvent):
         imageVersion: str,
         imageUrl: str,
         registryUrl: str,
+        metadata: Dict[str, str] = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
@@ -57,6 +58,8 @@ class DockerImagePushed(AbstractDockerEvent):
         :type imageUrl: str
         :param registryUrl: The url of the registry.
         :type registryUrl: str
+        :param metadata: The image metadata.
+        :type metadata: Dict[str, str]
         :param previousEventIds: The id of previous events, if any.
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
@@ -68,6 +71,7 @@ class DockerImagePushed(AbstractDockerEvent):
         super().__init__(
             imageName,
             imageVersion,
+            metadata,
             previousEventIds,
             reconstructedId,
             reconstructedPreviousEventIds,

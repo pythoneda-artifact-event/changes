@@ -21,7 +21,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_docker_event import AbstractDockerEvent
 from pythoneda.shared import primary_key_attribute
-from typing import List
+from typing import Dict, List
 
 
 class DockerImageFailed(AbstractDockerEvent):
@@ -42,6 +42,7 @@ class DockerImageFailed(AbstractDockerEvent):
         imageName: str,
         imageVersion: str,
         cause: str,
+        metadata: Dict[str, str] = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
         reconstructedPreviousEventIds: List[str] = None,
@@ -65,6 +66,7 @@ class DockerImageFailed(AbstractDockerEvent):
         super().__init__(
             imageName,
             imageVersion,
+            metadata,
             previousEventIds,
             reconstructedId,
             reconstructedPreviousEventIds,
