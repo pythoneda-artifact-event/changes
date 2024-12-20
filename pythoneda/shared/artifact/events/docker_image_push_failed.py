@@ -47,7 +47,6 @@ class DockerImagePushFailed(AbstractDockerEvent):
         metadata: Dict[str, str] = {},
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new DockerImagePushFailed instance.
@@ -65,9 +64,6 @@ class DockerImagePushFailed(AbstractDockerEvent):
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
         super().__init__(
             imageName,
@@ -75,7 +71,6 @@ class DockerImagePushFailed(AbstractDockerEvent):
             metadata,
             previousEventIds,
             reconstructedId,
-            reconstructedPreviousEventIds,
         )
         self._image_url = imageUrl
         self._registry_url = registryUrl

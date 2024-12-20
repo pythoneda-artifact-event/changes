@@ -45,8 +45,8 @@ class AbstractTagPushed(Event):
         branch: str,
         repositoryFolder: str,
         committedChangesTaggedId: str = None,
+        previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new AbstractTagPushed instance.
@@ -60,20 +60,12 @@ class AbstractTagPushed(Event):
         :type branch: str
         :param repositoryFolder: The repository folder.
         :type repositoryFolder: str
-        :param committedChangesTaggedId: The id of the previous event, if any.
-        :type committedChangesTaggedId: str
+        :param previousEventIds: The id of the previous events.
+        :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
-        previous_events = None
-        if committedChangesTaggedId:
-            previous_events = [committedChangesTaggedId]
-        super().__init__(
-            previous_events, reconstructedId, reconstructedPreviousEventIds
-        )
+        super().__init__(previousEventIds, reconstructedId)
         self._tag = tag
         self._commit = commit
         self._repository_url = repositoryUrl

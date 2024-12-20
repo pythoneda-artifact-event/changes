@@ -42,9 +42,8 @@ class AbstractCommitPushed(ChangeEvent):
         self,
         change: Change,
         commit: str,
-        previousEventId: str = None,
+        previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new AbstractCommitPushed instance.
@@ -52,19 +51,14 @@ class AbstractCommitPushed(ChangeEvent):
         :type change: pythoneda.shared.artifact.events.Change
         :param commit: The commit.
         :type commit: str
-        :param previousEventId: The id of the request event.
-        :type previousEventId: str
+        :param previousEventIds: The id of the previous events.
+        :type previousEventIds: List[str]
         :param previousEventId: The id of previous events, if any.
         :type previousEventId: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
-        super().__init__(
-            change, previousEventId, reconstructedId, reconstructedPreviousEventIds
-        )
+        super().__init__(change, previousEventIds, reconstructedId)
         self._commit = commit
 
     @property
@@ -76,6 +70,8 @@ class AbstractCommitPushed(ChangeEvent):
         :rtype: str
         """
         return self._commit
+
+
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
 # Local Variables:
 # mode: python

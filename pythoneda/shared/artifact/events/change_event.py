@@ -41,28 +41,19 @@ class ChangeEvent(Event):
     def __init__(
         self,
         change: Change,
-        previousEventId: str = None,
+        previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new ChangeEvent instance.
         :param change: The change information.
         :type change: pythoneda.shared.artifact.events.Change
-        :param previousEventId: The id of the request event.
-        :type previousEventId: str
+        :param previousEventIds: The id of the previous events.
+        :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
-        previous_events = None
-        if previousEventId:
-            previous_events = [previousEventId]
-        super().__init__(
-            previous_events, reconstructedId, reconstructedPreviousEventIds
-        )
+        super().__init__(previousEventIds, reconstructedId)
         self._change = change
 
     @property

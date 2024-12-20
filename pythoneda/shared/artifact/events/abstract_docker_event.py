@@ -44,7 +44,6 @@ class AbstractDockerEvent(Event, abc.ABC):
         metadata: Dict[str, str] = None,
         previousEventIds: List[str] = None,
         reconstructedId: str = None,
-        reconstructedPreviousEventIds: List[str] = None,
     ):
         """
         Creates a new AbstractDockerEvent instance.
@@ -58,13 +57,8 @@ class AbstractDockerEvent(Event, abc.ABC):
         :type previousEventIds: List[str]
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
-        :param reconstructedPreviousEventIds: The id of the previous events, if an external event
-        is being reconstructed.
-        :type reconstructedPreviousEventIds: List[str]
         """
-        super().__init__(
-            previousEventIds, reconstructedId, reconstructedPreviousEventIds
-        )
+        super().__init__(previousEventIds, reconstructedId)
         self._image_name = imageName
         self._image_version = imageVersion
         self._metadata = metadata
