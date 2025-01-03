@@ -58,8 +58,8 @@ class AbstractCommitPushed(ChangeEvent):
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         """
-        super().__init__(change, previousEventIds, reconstructedId)
         self._commit = commit
+        super().__init__(change, previousEventIds, reconstructedId)
 
     @property
     @primary_key_attribute

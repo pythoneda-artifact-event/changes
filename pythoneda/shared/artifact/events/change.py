@@ -56,11 +56,11 @@ class Change(Entity):
         :param repositoryFolder: The folder of the cloned repository.
         :type repositoryFolder: str
         """
-        super().__init__()
         self._unidiff_text = unidiffText
         self._repository_url = repositoryUrl
         self._branch = branch
         self._repository_folder = repositoryFolder
+        super().__init__()
 
     @property
     @primary_key_attribute

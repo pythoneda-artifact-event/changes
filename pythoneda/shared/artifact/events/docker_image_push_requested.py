@@ -64,6 +64,8 @@ class DockerImagePushRequested(AbstractDockerEvent):
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         """
+        self._image_url = imageUrl
+        self._registry_url = registryUrl
         super().__init__(
             imageName,
             imageVersion,
@@ -71,8 +73,6 @@ class DockerImagePushRequested(AbstractDockerEvent):
             previousEventIds,
             reconstructedId,
         )
-        self._image_url = imageUrl
-        self._registry_url = registryUrl
 
         @property
         @primary_key_attribute

@@ -59,13 +59,13 @@ class AbstractChangesCommitted(ChangeEvent):
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         """
+        self._message = message
+        self._commit = commit
         super().__init__(
             change,
             previousEventIds,
             reconstructedId,
         )
-        self._message = message
-        self._commit = commit
 
     @property
     @attribute

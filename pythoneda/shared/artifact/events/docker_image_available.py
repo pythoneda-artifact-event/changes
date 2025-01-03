@@ -58,6 +58,7 @@ class DockerImageAvailable(AbstractDockerEvent):
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         """
+        self._image_url = imageUrl
         super().__init__(
             imageName,
             imageVersion,
@@ -65,7 +66,6 @@ class DockerImageAvailable(AbstractDockerEvent):
             previousEventIds,
             reconstructedId,
         )
-        self._image_url = imageUrl
 
     @property
     def image_url(self) -> str:

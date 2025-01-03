@@ -59,6 +59,7 @@ class DockerImageFailed(AbstractDockerEvent):
         :param reconstructedId: The id of the event, if it's generated externally.
         :type reconstructedId: str
         """
+        self._cause = cause
         super().__init__(
             imageName,
             imageVersion,
@@ -66,7 +67,6 @@ class DockerImageFailed(AbstractDockerEvent):
             previousEventIds,
             reconstructedId,
         )
-        self._cause = cause
 
     @property
     def cause(self) -> str:
