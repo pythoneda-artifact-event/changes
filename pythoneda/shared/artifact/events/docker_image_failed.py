@@ -69,6 +69,7 @@ class DockerImageFailed(AbstractDockerEvent):
         )
 
     @property
+    @primary_key_attribute
     def cause(self) -> str:
         """
         The error cause.

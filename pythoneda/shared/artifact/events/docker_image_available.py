@@ -20,6 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from .abstract_docker_event import AbstractDockerEvent
+from pythoneda.shared import attribute
 from typing import Dict, List
 
 
@@ -68,6 +69,7 @@ class DockerImageAvailable(AbstractDockerEvent):
         )
 
     @property
+    @attribute
     def image_url(self) -> str:
         """
         The image url.

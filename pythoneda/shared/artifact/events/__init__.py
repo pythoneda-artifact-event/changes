@@ -21,13 +21,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 __path__ = __import__("pkgutil").extend_path(__path__, __name__)
 
+import sys
+
+from .change import Change
+from .change_event import ChangeEvent
 from .abstract_changes_committed import AbstractChangesCommitted
 from .abstract_commit_pushed import AbstractCommitPushed
 from .abstract_commit_tagged import AbstractCommitTagged
 from .abstract_docker_event import AbstractDockerEvent
 from .abstract_tag_pushed import AbstractTagPushed
-from .change import Change
-from .change_event import ChangeEvent
 from .change_staged import ChangeStaged
 from .change_staging_from_folder_requested import ChangeStagingFromFolderRequested
 from .committed_changes_pushed import CommittedChangesPushed

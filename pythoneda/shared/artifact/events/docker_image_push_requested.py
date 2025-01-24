@@ -66,33 +66,36 @@ class DockerImagePushRequested(AbstractDockerEvent):
         """
         self._image_url = imageUrl
         self._registry_url = registryUrl
+        my_metadata = metadata.copy()
+        my_metadata["image_url"] = imageUrl
+        my_metadata["docker_registry_url"] = registryUrl
         super().__init__(
             imageName,
             imageVersion,
-            metadata,
+            my_metadata,
             previousEventIds,
             reconstructedId,
         )
 
-        @property
-        @primary_key_attribute
-        def image_url(self) -> str:
-            """
-            Retrieves the url of the image.
-            :return: Such url.
-            :rtype str:
-            """
-            return self._image_url
+    @property
+    @primary_key_attribute
+    def image_url(self) -> str:
+        """
+        Retrieves the url of the image.
+        :return: Such url.
+        :rtype str:
+        """
+        return self._image_url
 
-        @property
-        @primary_key_attribute
-        def registry_url(self) -> str:
-            """
-            Retrieves the url of the registry.
-            :return: Such url.
-            :rtype str:
-            """
-            return self._registry_url
+    @property
+    @primary_key_attribute
+    def registry_url(self) -> str:
+        """
+        Retrieves the url of the registry.
+        :return: Such url.
+        :rtype str:
+        """
+        return self._registry_url
 
 
 # vim: syntax=python ts=4 sw=4 sts=4 tw=79 sr et
