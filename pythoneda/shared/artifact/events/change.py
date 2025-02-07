@@ -20,8 +20,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 import json
-from pythoneda.shared import Entity, primary_key_attribute
-from typing import Dict
+from pythoneda.shared import Entity, EventReference, primary_key_attribute
+from typing import Dict, List
 from unidiff import PatchSet
 
 
@@ -44,6 +44,7 @@ class Change(Entity):
         repositoryUrl: str,
         branch: str,
         repositoryFolder: str = None,
+        eventHistory: List[EventReference] = [],
     ):
         """
         Creates a new Change instance.
@@ -55,12 +56,14 @@ class Change(Entity):
         :type branch: str
         :param repositoryFolder: The folder of the cloned repository.
         :type repositoryFolder: str
+        :param eventHistory: The event history.
+        :type eventHistory: List[pythoneda.shared.EventReference]
         """
         self._unidiff_text = unidiffText
         self._repository_url = repositoryUrl
         self._branch = branch
         self._repository_folder = repositoryFolder
-        super().__init__()
+        super().__init__(eventHistory=eventHistory)
 
     @property
     @primary_key_attribute
